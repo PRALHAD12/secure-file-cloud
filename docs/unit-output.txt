@@ -1,0 +1,16 @@
+test_api_never_returns_key_material_fields (test_backend.BackendTests.test_api_never_returns_key_material_fields) ... ok
+test_bad_ids_and_unknown_routes (test_backend.BackendTests.test_bad_ids_and_unknown_routes) ... ok
+test_complete_rejects_missing_segment_and_duplicates (test_backend.BackendTests.test_complete_rejects_missing_segment_and_duplicates) ... ok
+test_complete_rejects_wrong_size_and_cleans_up (test_backend.BackendTests.test_complete_rejects_wrong_size_and_cleans_up) ... ok
+test_cors_only_for_allowed_origins (test_backend.BackendTests.test_cors_only_for_allowed_origins) ... ok
+test_filename_is_sanitised (test_backend.BackendTests.test_filename_is_sanitised) ... ok
+test_full_flow_list_stats_download_delete (test_backend.BackendTests.test_full_flow_list_stats_download_delete) ... ok
+test_init_segment_names_and_count (test_backend.BackendTests.test_init_segment_names_and_count) ... ok
+test_init_validation (test_backend.BackendTests.test_init_validation) ... ok
+test_metrics_whitelist (test_backend.BackendTests.test_metrics_whitelist) ... ok
+test_signed_urls_are_enforced (test_backend.BackendTests.test_signed_urls_are_enforced) ... ok
+
+----------------------------------------------------------------------
+Ran 11 tests in 0.137s
+
+OK

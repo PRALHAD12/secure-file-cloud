@@ -1,0 +1,28 @@
+PASS  Upload + segmentation + encryption: big (12928590 bytes)  -> 3 segment(s), 12928674 bytes stored (overhead 84 B)
+PASS  Upload + segmentation + encryption: small (1500 bytes)  -> 1 segment(s), 1528 bytes stored (overhead 28 B)
+PASS  Upload + segmentation + encryption: exact (10485760 bytes)  -> 2 segment(s), 10485816 bytes stored (overhead 56 B)
+PASS  Upload + segmentation + encryption: one (1 bytes)  -> 1 segment(s), 29 bytes stored (overhead 28 B)
+PASS  Only encrypted data stored: plaintext marker not found in any stored object  -> 9 stored objects scanned
+PASS  Encryption key is not sent to / stored by the server (scan all stored files + activity DB)
+PASS  Each segment uses a unique nonce (all nonces across all segments distinct)  -> 6 nonces, all unique
+PASS  Download + decrypt + merge + compare: big  -> SHA-256 identical (8617ae1351ea65ae…)  decrypt 24.7 ms
+PASS  Download + decrypt + merge + compare: small  -> SHA-256 identical (cdafbddbce22ff39…)  decrypt 0.5 ms
+PASS  Download + decrypt + merge + compare: exact  -> SHA-256 identical (3841bd6f92441bdb…)  decrypt 13.1 ms
+PASS  Download + decrypt + merge + compare: one  -> SHA-256 identical (e632b7095b0bf32c…)  decrypt 0.7 ms
+PASS  Key accepted as plain base64, base64url and hex text
+PASS  Wrong key -> authentication error, no file produced  -> Authentication failed for segment 0: the key is wrong, or the segment was modified, damaged or placed in the wrong order.
+PASS  Invalid key formats are rejected with clear messages
+PASS  Key file of a different file is rejected
+PASS  Corrupted segment (1 bit flipped in segment 1) -> detected, no file produced  -> Authentication failed for segment 1: the key is wrong, or the segment was modified, damaged or placed in the wrong order.
+PASS  Modified nonce bytes -> detected  -> Authentication failed for segment 2: the key is wrong, or the segment was modified, damaged or placed in the wrong order.
+PASS  Truncated segment -> detected  -> Segment 0 has 5242903 bytes but 5242908 were expected: it was truncated or modified.
+PASS  Swapped segments (0 <-> 1, same size) -> detected by index AAD  -> Authentication failed for segment 0: the key is wrong, or the segment was modified, damaged or placed in the wrong order.
+PASS  Missing segment in cloud -> clear download error  -> Segment 2 could not be downloaded (HTTP 404). It may be missing or the link expired.
+PASS  Segment removed from manifest (tampered cloud manifest) -> caught by key-file segment count  -> Segment count mismatch: your key file says 3, the cloud manifest says 2. A segment may have been added or removed.
+PASS  After all tampering tests, the untouched file still restores perfectly
+PASS  Python reference decryptor (report's algorithm) restores browser-encrypted segments  -> OK: 3 segments decrypted and merged into /home/claude/secure-file-cloud/tests/.tmp_py/restored.bin
+PASS  Dashboard/performance data is real: stats, activity and metrics come from the backend  -> files=4 segments=7 up_ok=4 down_ok=9 down_failed=8
+PASS  Server-side verification rejects an upload whose segments were never sent  -> Upload verification failed: part00000.enc is missing; part00001.enc is missing
+PASS  Delete removes all segments and manifest
+
+26/26 end-to-end tests passed

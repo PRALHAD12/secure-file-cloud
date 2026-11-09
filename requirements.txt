@@ -1,0 +1,5 @@
+Flask>=3.0,<4
+boto3>=1.34
+python-dotenv>=1.0
+cryptography>=42.0   # only used by scripts/verify_segments.py (the backend never sees keys)
+waitress>=3.0        # optional production-style server (works on Windows)

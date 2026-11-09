@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🔐</text></svg>">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+<link href="style.css" rel="stylesheet">
+<script src="config.js"></script><title>Secure Download · Secure File Cloud</title></head>
+<body><div id="sidebar"></div><main class="content"><header id="topbar"></header><div class="page">
+<div class="panel mb-3"><div class="d-flex justify-content-between align-items-center"><h2 class="mb-3">1. Choose an uploaded file</h2><button class="btn btn-outline-primary btn-sm mb-3" id="reload"><i class="bi bi-arrow-clockwise"></i> Refresh</button></div>
+<div class="table-wrap"><table class="table"><thead><tr><th>File</th><th>Size</th><th>Segments</th><th>Uploaded</th><th class="text-end">Actions</th></tr></thead><tbody id="files"></tbody></table></div></div>
+<div class="panel mb-3" id="dl" hidden><h2>2. Provide your key and restore the file</h2>
+<p class="mb-2">Selected: <b id="sel" class="text-break"></b></p>
+<div class="row g-3"><div class="col-lg-7"><label class="form-label small text-secondary" for="keyText">Encryption key (paste text) or load the saved key file</label>
+<textarea class="form-control mono" id="keyText" rows="3" spellcheck="false" autocomplete="off" placeholder="Paste the base64 key, or load the .sfskey file →"></textarea></div>
+<div class="col-lg-5"><label class="form-label small text-secondary" for="keyFile">Key file</label><input type="file" class="form-control mb-3" id="keyFile" accept=".sfskey,.json,.txt,.key">
+<button class="btn btn-primary w-100" id="go"><i class="bi bi-unlock"></i> Fetch, Decrypt &amp; Restore</button></div></div>
+<div id="out" class="mt-3"></div>
+<div class="progress mt-3" hidden id="pg"><div class="progress-bar" id="bar" style="width:0%"></div></div><div class="small text-secondary mt-1" id="txt"></div>
+<details class="mt-2" open id="segBox" hidden><summary class="small fw-semibold">Segments</summary><div class="table-wrap mt-2"><table class="table table-sm"><thead><tr><th>Index</th><th>Object name</th><th>Encrypted size</th><th>Original size</th><th>Status</th></tr></thead><tbody id="segs"></tbody></table></div></details></div>
+</div></main>
+<script type="module" src="js/download.js"></script></body></html>

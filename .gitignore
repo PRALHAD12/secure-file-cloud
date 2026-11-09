@@ -1,0 +1,11 @@
+.env
+.venv/
+venv/
+__pycache__/
+*.pyc
+backend/data/
+*.key
+*.sfskey
+.unittest_cache/
+node_modules/
+.DS_Store
