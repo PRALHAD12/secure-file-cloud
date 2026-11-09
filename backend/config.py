@@ -32,7 +32,7 @@ class Settings:
     allowed_origins: list = field(default_factory=lambda: [
         o.strip() for o in os.getenv("ALLOWED_ORIGINS", "http://localhost:5000,http://127.0.0.1:5000").split(",") if o.strip()])
     signing_secret: str = field(default_factory=lambda: os.getenv("LOCAL_SIGNING_SECRET", "dev-only-secret"))
-    data_dir: Path = field(default_factory=lambda: Path(os.getenv("DATA_DIR", ROOT / "backend" / "data")))
+    data_dir: Path = field(default_factory=lambda: Path(os.getenv("DATA_DIR", "/tmp" if os.getenv("VERCEL") else ROOT / "backend" / "data")))
     frontend_dir: Path = ROOT / "frontend"
 
     # Limits for the upload API (the browser may choose a segment size inside these limits)
