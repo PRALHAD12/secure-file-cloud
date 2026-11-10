@@ -1,8 +1,8 @@
 import { api, $, esc, fmtBytes, fmtMs, renderShell, toast } from "./ui.js";
 renderShell("performance", "Performance Measurement");
 
-const STAGES = [["segment_ms", "Segmentation", "#7aa7ff"], ["encrypt_ms", "Encryption", "#1f6feb"], ["upload_ms", "Upload", "#0a1f44"],
-  ["download_ms", "Download", "#2bb39b"], ["decrypt_ms", "Decryption", "#1658bd"], ["reconstruct_ms", "Reconstruction", "#f0a500"]];
+const STAGES = [["segment_ms", "Segmentation", "#c4b5fd"], ["encrypt_ms", "Encryption", "#8b5cf6"], ["upload_ms", "Upload", "#6d28d9"],
+  ["download_ms", "Download", "#38bdf8"], ["decrypt_ms", "Decryption", "#a855f7"], ["reconstruct_ms", "Reconstruction", "#f59e0b"]];
 let recs = [], segSizes = {};
 
 async function load() {

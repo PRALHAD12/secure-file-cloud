@@ -1,64 +1,221 @@
 <!DOCTYPE html>
-<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
-<link href="style.css" rel="stylesheet">
-<script src="config.js"></script><title>Secure File Cloud · Segmentation, AES-256-GCM, S3 and CDN</title>
-<meta name="description" content="Split files into segments, encrypt them in your browser with AES-256-GCM, store them in Amazon S3 and serve the site through CloudFront."></head>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+  <link href="style.css" rel="stylesheet">
+  <script src="config.js"></script>
+  <title>Secure File Cloud · Segmentation, AES-256-GCM, S3 and CDN</title>
+  <meta name="description"
+    content="Split files into segments, encrypt them in your browser with AES-256-GCM, store them in Amazon S3 and serve the site through CloudFront.">
+</head>
+
 <body>
-<nav class="navbar navbar-expand-lg nav-land sticky-top navbar-dark"><div class="container">
-  <a class="navbar-brand d-flex align-items-center gap-2" href="index.html"><span class="brand"><span class="logo" style="width:34px;height:34px"><i class="bi bi-shield-lock-fill"></i></span></span>Secure File Cloud</a>
+<nav class="navbar navbar-expand-lg nav-land sticky-top navbar-light"><div class="container">
+  <a class="navbar-brand d-flex align-items-center gap-2" href="index.html">Secure File Cloud</a>
   <button class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#nv" onclick="document.getElementById('nv').classList.toggle('show')"><span class="navbar-toggler-icon"></span></button>
   <div class="collapse navbar-collapse" id="nv"><ul class="navbar-nav ms-auto align-items-lg-center gap-lg-1">
     <li class="nav-item"><a class="nav-link" href="#concepts">Concepts</a></li><li class="nav-item"><a class="nav-link" href="#features">Features</a></li>
     <li class="nav-item"><a class="nav-link" href="#how">How it works</a></li><li class="nav-item"><a class="nav-link" href="about.html">About</a></li>
     <li class="nav-item ms-lg-2"><a class="btn btn-primary btn-sm px-3" href="dashboard.html">Open app</a></li></ul></div></div></nav>
 
-<header class="hero"><div class="container"><div class="row align-items-center g-5">
-  <div class="col-lg-7">
-    <span class="chip"><i class="bi bi-lock-fill"></i> AES-256-GCM</span><span class="chip"><i class="bi bi-bucket"></i> Amazon S3</span><span class="chip"><i class="bi bi-lightning-charge-fill"></i> CloudFront CDN</span>
-    <h1 class="mt-2">Secure file segmentation, encrypted cloud download and static site hosting with CDN integration</h1>
-    <p class="lead my-4">Your file is split into 5 MB segments, every segment is encrypted <b>in your browser</b> with a key that never leaves your computer, and only ciphertext is stored in a private S3 bucket. This website itself is hosted on S3 and delivered worldwide by CloudFront.</p>
-    <a class="btn btn-primary btn-lg px-4 me-2" href="dashboard.html"><i class="bi bi-rocket-takeoff"></i> Get Started</a>
-    <a class="btn btn-outline-light btn-lg px-4" href="upload.html">Upload a file</a>
-  </div>
-  <div class="col-lg-5"><div class="flow">
-    <div class="node"><i class="bi bi-file-earmark"></i><div><b>Your file</b><div class="small opacity-75">stays on your computer</div></div></div><div class="arrow"><i class="bi bi-chevron-down"></i></div>
-    <div class="node"><i class="bi bi-scissors"></i><div><b>Split</b> into part00000, part00001 …</div></div><div class="arrow"><i class="bi bi-chevron-down"></i></div>
-    <div class="node"><i class="bi bi-key"></i><div><b>Encrypt</b> each segment (random nonce + tag)</div></div><div class="arrow"><i class="bi bi-chevron-down"></i></div>
-    <div class="node"><i class="bi bi-bucket"></i><div><b>Private S3 bucket</b> stores ciphertext only</div></div></div></div>
-</div></div></header>
+  <header class="hero">
+    <div class="container">
+      <div class="row align-items-center g-5">
+        <div class="col-lg-7">
+          <span class="chip"><i class="bi bi-lock-fill"></i> AES-256-GCM</span><span class="chip"><i
+              class="bi bi-bucket"></i> Amazon S3</span><span class="chip"><i class="bi bi-lightning-charge-fill"></i>
+            CloudFront CDN</span>
+          <h1 class="mt-2">Secure file segmentation, encrypted cloud download and static site hosting with CDN
+            integration</h1>
+          <p class="lead my-4">Your file is split into 5 MB segments, every segment is encrypted <b>in your browser</b>
+            with a key that never leaves your computer, and only ciphertext is stored in a private S3 bucket. This
+            website itself is hosted on S3 and delivered worldwide by CloudFront.</p>
+          <a class="btn btn-primary btn-lg px-4 me-2" href="dashboard.html"><i class="bi bi-rocket-takeoff"></i> Get
+            Started</a>
+          <a class="btn btn-outline-purple btn-lg px-4" href="upload.html">Upload a file</a>
+        </div>
+        <div class="col-lg-5">
+          <div class="flow">
+            <div class="node"><i class="bi bi-file-earmark"></i>
+              <div><b>Your file</b>
+                <div class="small opacity-75">stays on your computer</div>
+              </div>
+            </div>
+            <div class="arrow"><i class="bi bi-chevron-down"></i></div>
+            <div class="node"><i class="bi bi-scissors"></i>
+              <div><b>Split</b> into part00000, part00001 …</div>
+            </div>
+            <div class="arrow"><i class="bi bi-chevron-down"></i></div>
+            <div class="node"><i class="bi bi-key"></i>
+              <div><b>Encrypt</b> each segment (random nonce + tag)</div>
+            </div>
+            <div class="arrow"><i class="bi bi-chevron-down"></i></div>
+            <div class="node"><i class="bi bi-bucket"></i>
+              <div><b>Private S3 bucket</b> stores ciphertext only</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
 
-<section class="sect" id="concepts"><div class="container text-center"><h2>The four ideas behind the project</h2><p class="sub">Short explanations in simple words.</p>
-<div class="row g-4 text-start">
- <div class="col-md-6 col-lg-3"><div class="card-x"><div class="ico"><i class="bi bi-scissors"></i></div><h3 class="h6 fw-bold">What is Secure File Segmentation?</h3><p class="small text-secondary mb-0">A big file is cut into equal blocks (5 MB here). Each block gets an index number, is sent separately, and can be retried if it fails. After download the blocks are joined in index order to rebuild the exact original file.</p></div></div>
- <div class="col-md-6 col-lg-3"><div class="card-x"><div class="ico"><i class="bi bi-shield-lock"></i></div><h3 class="h6 fw-bold">What is AES-256 Encryption?</h3><p class="small text-secondary mb-0">AES is a standard cipher; 256 means a 256-bit secret key. In GCM mode it also adds a 16-byte authentication tag, so if anyone changes even one bit of a stored block, decryption fails instead of giving wrong data.</p></div></div>
- <div class="col-md-6 col-lg-3"><div class="card-x"><div class="ico"><i class="bi bi-cloud"></i></div><h3 class="h6 fw-bold">What is Cloud Storage?</h3><p class="small text-secondary mb-0">Object storage such as Amazon S3 keeps files as objects inside buckets. It is durable, pay-as-you-go and needs no server. Here the bucket is private and holds only encrypted segments.</p></div></div>
- <div class="col-md-6 col-lg-3"><div class="card-x"><div class="ico"><i class="bi bi-globe2"></i></div><h3 class="h6 fw-bold">What is a CDN?</h3><p class="small text-secondary mb-0">A Content Delivery Network (Amazon CloudFront) keeps copies of your website at edge locations near visitors. Pages load faster, the origin bucket gets less traffic, and HTTPS is provided.</p></div></div>
-</div></div></section>
+  <section class="sect" id="concepts">
+    <div class="container text-center">
+      <h2>The four ideas behind the project</h2>
+      <p class="sub">Short explanations in simple words.</p>
+      <div class="row g-4 text-start">
+        <div class="col-md-6 col-lg-3">
+          <div class="card-x">
+            <div class="ico"><i class="bi bi-scissors"></i></div>
+            <h3 class="h6 fw-bold">What is Secure File Segmentation?</h3>
+            <p class="small text-secondary mb-0">A big file is cut into equal blocks (5 MB here). Each block gets an
+              index number, is sent separately, and can be retried if it fails. After download the blocks are joined in
+              index order to rebuild the exact original file.</p>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-3">
+          <div class="card-x">
+            <div class="ico"><i class="bi bi-shield-lock"></i></div>
+            <h3 class="h6 fw-bold">What is AES-256 Encryption?</h3>
+            <p class="small text-secondary mb-0">AES is a standard cipher; 256 means a 256-bit secret key. In GCM mode
+              it also adds a 16-byte authentication tag, so if anyone changes even one bit of a stored block, decryption
+              fails instead of giving wrong data.</p>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-3">
+          <div class="card-x">
+            <div class="ico"><i class="bi bi-cloud"></i></div>
+            <h3 class="h6 fw-bold">What is Cloud Storage?</h3>
+            <p class="small text-secondary mb-0">Object storage such as Amazon S3 keeps files as objects inside buckets.
+              It is durable, pay-as-you-go and needs no server. Here the bucket is private and holds only encrypted
+              segments.</p>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-3">
+          <div class="card-x">
+            <div class="ico"><i class="bi bi-globe2"></i></div>
+            <h3 class="h6 fw-bold">What is a CDN?</h3>
+            <p class="small text-secondary mb-0">A Content Delivery Network (Amazon CloudFront) keeps copies of your
+              website at edge locations near visitors. Pages load faster, the origin bucket gets less traffic, and HTTPS
+              is provided.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 
-<section class="sect pt-0" id="features"><div class="container text-center"><h2>Main features</h2><p class="sub">Everything required by the project report, implemented as working software.</p>
-<div class="row g-4 text-start">
- <div class="col-md-6 col-lg-4"><div class="card-x"><div class="ico"><i class="bi bi-key"></i></div><h3 class="h6 fw-bold">Client-side keys</h3><p class="small text-secondary mb-0">A random 256-bit key is created in your browser. It is never sent to the server or cloud and never put in localStorage. You save it as a key file.</p></div></div>
- <div class="col-md-6 col-lg-4"><div class="card-x"><div class="ico"><i class="bi bi-shield-check"></i></div><h3 class="h6 fw-bold">Tamper detection</h3><p class="small text-secondary mb-0">The segment index is authenticated data. Wrong keys, changed bytes, swapped or missing segments are detected and no broken file is produced.</p></div></div>
- <div class="col-md-6 col-lg-4"><div class="card-x"><div class="ico"><i class="bi bi-link-45deg"></i></div><h3 class="h6 fw-bold">Presigned URLs</h3><p class="small text-secondary mb-0">AWS keys stay on the Python backend. The browser talks to S3 using short-lived signed links, one per segment.</p></div></div>
- <div class="col-md-6 col-lg-4"><div class="card-x"><div class="ico"><i class="bi bi-speedometer2"></i></div><h3 class="h6 fw-bold">Real dashboard</h3><p class="small text-secondary mb-0">File counts, segments, storage used and activity come from the actual stored data, not from fixed numbers.</p></div></div>
- <div class="col-md-6 col-lg-4"><div class="card-x"><div class="ico"><i class="bi bi-graph-up-arrow"></i></div><h3 class="h6 fw-bold">Measured performance</h3><p class="small text-secondary mb-0">Segmentation, encryption, upload, download, decryption and rebuild times are measured per transfer. CDN cache status is read from real response headers.</p></div></div>
- <div class="col-md-6 col-lg-4"><div class="card-x"><div class="ico"><i class="bi bi-lightning-charge"></i></div><h3 class="h6 fw-bold">S3 + CloudFront hosting</h3><p class="small text-secondary mb-0">The site is stored in a private S3 bucket, reachable only through CloudFront over HTTPS, with index.html and error.html.</p></div></div>
-</div></div></section>
+  <section class="sect pt-0" id="features">
+    <div class="container text-center">
+      <h2>Main features</h2>
+      <p class="sub">Everything required by the project report, implemented as working software.</p>
+      <div class="row g-4 text-start">
+        <div class="col-md-6 col-lg-4">
+          <div class="card-x">
+            <div class="ico"><i class="bi bi-key"></i></div>
+            <h3 class="h6 fw-bold">Client-side keys</h3>
+            <p class="small text-secondary mb-0">A random 256-bit key is created in your browser. It is never sent to
+              the server or cloud and never put in localStorage. You save it as a key file.</p>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-4">
+          <div class="card-x">
+            <div class="ico"><i class="bi bi-shield-check"></i></div>
+            <h3 class="h6 fw-bold">Tamper detection</h3>
+            <p class="small text-secondary mb-0">The segment index is authenticated data. Wrong keys, changed bytes,
+              swapped or missing segments are detected and no broken file is produced.</p>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-4">
+          <div class="card-x">
+            <div class="ico"><i class="bi bi-link-45deg"></i></div>
+            <h3 class="h6 fw-bold">Presigned URLs</h3>
+            <p class="small text-secondary mb-0">AWS keys stay on the Python backend. The browser talks to S3 using
+              short-lived signed links, one per segment.</p>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-4">
+          <div class="card-x">
+            <div class="ico"><i class="bi bi-speedometer2"></i></div>
+            <h3 class="h6 fw-bold">Real dashboard</h3>
+            <p class="small text-secondary mb-0">File counts, segments, storage used and activity come from the actual
+              stored data, not from fixed numbers.</p>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-4">
+          <div class="card-x">
+            <div class="ico"><i class="bi bi-graph-up-arrow"></i></div>
+            <h3 class="h6 fw-bold">Measured performance</h3>
+            <p class="small text-secondary mb-0">Segmentation, encryption, upload, download, decryption and rebuild
+              times are measured per transfer. CDN cache status is read from real response headers.</p>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-4">
+          <div class="card-x">
+            <div class="ico"><i class="bi bi-lightning-charge"></i></div>
+            <h3 class="h6 fw-bold">S3 + CloudFront hosting</h3>
+            <p class="small text-secondary mb-0">The site is stored in a private S3 bucket, reachable only through
+              CloudFront over HTTPS, with index.html and error.html.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 
-<section class="sect pt-0" id="how"><div class="container"><h2 class="text-center">How the system works</h2><p class="sub text-center">Upload and download, step by step.</p>
-<div class="row g-4"><div class="col-lg-6"><div class="panel h-100"><h3><i class="bi bi-cloud-arrow-up text-primary"></i> Upload</h3>
- <div class="d-flex gap-3 mb-3"><span class="step-n">1</span><div>Choose a file. The browser creates a new random 256-bit key.</div></div>
- <div class="d-flex gap-3 mb-3"><span class="step-n">2</span><div>The backend returns one presigned URL per segment (<code>part00000.enc</code>, <code>part00001.enc</code> …).</div></div>
- <div class="d-flex gap-3 mb-3"><span class="step-n">3</span><div>For each 5 MB block: encrypt with a fresh 12-byte nonce, then PUT the ciphertext straight to S3.</div></div>
- <div class="d-flex gap-3"><span class="step-n">4</span><div>The backend checks every stored object size, writes a manifest, and you save your key file.</div></div></div></div>
- <div class="col-lg-6"><div class="panel h-100"><h3><i class="bi bi-cloud-arrow-down text-primary"></i> Download</h3>
- <div class="d-flex gap-3 mb-3"><span class="step-n">1</span><div>Pick a file and provide your key file (or key text).</div></div>
- <div class="d-flex gap-3 mb-3"><span class="step-n">2</span><div>The browser fetches each encrypted segment through a presigned URL.</div></div>
- <div class="d-flex gap-3 mb-3"><span class="step-n">3</span><div>Every segment is decrypted and its tag and index are verified. Any failure stops the process.</div></div>
- <div class="d-flex gap-3"><span class="step-n">4</span><div>Verified segments are merged in order and you download the restored original file.</div></div></div></div></div>
-<div class="text-center mt-5"><a class="btn btn-primary btn-lg px-4" href="dashboard.html">Get Started <i class="bi bi-arrow-right"></i></a></div></div></section>
+  <section class="sect pt-0" id="how">
+    <div class="container">
+      <h2 class="text-center">How the system works</h2>
+      <p class="sub text-center">Upload and download, step by step.</p>
+      <div class="row g-4">
+        <div class="col-lg-6">
+          <div class="panel h-100">
+            <h3><i class="bi bi-cloud-arrow-up text-primary"></i> Upload</h3>
+            <div class="d-flex gap-3 mb-3"><span class="step-n">1</span>
+              <div>Choose a file. The browser creates a new random 256-bit key.</div>
+            </div>
+            <div class="d-flex gap-3 mb-3"><span class="step-n">2</span>
+              <div>The backend returns one presigned URL per segment (<code>part00000.enc</code>,
+                <code>part00001.enc</code> …).</div>
+            </div>
+            <div class="d-flex gap-3 mb-3"><span class="step-n">3</span>
+              <div>For each 5 MB block: encrypt with a fresh 12-byte nonce, then PUT the ciphertext straight to S3.
+              </div>
+            </div>
+            <div class="d-flex gap-3"><span class="step-n">4</span>
+              <div>The backend checks every stored object size, writes a manifest, and you save your key file.</div>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-6">
+          <div class="panel h-100">
+            <h3><i class="bi bi-cloud-arrow-down text-primary"></i> Download</h3>
+            <div class="d-flex gap-3 mb-3"><span class="step-n">1</span>
+              <div>Pick a file and provide your key file (or key text).</div>
+            </div>
+            <div class="d-flex gap-3 mb-3"><span class="step-n">2</span>
+              <div>The browser fetches each encrypted segment through a presigned URL.</div>
+            </div>
+            <div class="d-flex gap-3 mb-3"><span class="step-n">3</span>
+              <div>Every segment is decrypted and its tag and index are verified. Any failure stops the process.</div>
+            </div>
+            <div class="d-flex gap-3"><span class="step-n">4</span>
+              <div>Verified segments are merged in order and you download the restored original file.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="text-center mt-5"><a class="btn btn-primary btn-lg px-4" href="dashboard.html">Get Started <i
+            class="bi bi-arrow-right"></i></a></div>
+    </div>
+  </section>
 
-<footer class="footer"><div class="container d-flex flex-wrap justify-content-between gap-2"><span>Cloud Computing Mini Project · Third Year Engineering, AI &amp; Data Science</span><span>AES-256-GCM · Amazon S3 · Amazon CloudFront</span></div></footer>
-</body></html>
+  <footer class="footer">
+    <div class="container d-flex flex-wrap justify-content-between gap-2"><span>Cloud Computing Mini Project · Third
+        Year Engineering, AI &amp; Data Science</span><span>AES-256-GCM · Amazon S3 · Amazon CloudFront</span></div>
+  </footer>
+</body>
+
+</html>

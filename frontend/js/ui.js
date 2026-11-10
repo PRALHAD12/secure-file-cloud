@@ -12,15 +12,23 @@ const NAV = [["dashboard", "Dashboard", "bi-speedometer2"], ["upload", "Secure U
 
 export function renderShell(active, title) {
   $("#sidebar").className = "sidebar";
-  $("#sidebar").innerHTML = `<a class="brand" href="index.html"><span class="logo"><i class="bi bi-shield-lock-fill"></i></span><span>Secure File Cloud<small>Segment · Encrypt · Deliver</small></span></a>
+  $("#sidebar").innerHTML = `<a class="brand" href="index.html"><span>Secure File Cloud<small>Segment · Encrypt · Deliver</small></span></a>
     ${NAV.map(([id, label, ic]) => `<a class="side-link ${id === active ? "active" : ""}" href="${id}.html"><i class="bi ${ic}"></i>${label}</a>`).join("")}
     <a class="side-link" href="index.html"><i class="bi bi-house"></i>Home</a>
     <div class="side-foot"><i class="bi bi-lock"></i> AES-256-GCM · Amazon S3 · CloudFront</div>`;
   $("#topbar").className = "topbar";
   $("#topbar").innerHTML = `<button class="menu-btn" aria-label="Menu"><i class="bi bi-list"></i></button><h1>${esc(title)}</h1><span class="ms-auto pill" id="cloud-pill"><span class="dot"></span>Checking…</span>`;
   document.body.insertAdjacentHTML("beforeend", '<div class="scrim" id="scrim"></div><div class="toasts" id="toasts"></div>');
-  const toggle = () => { $("#sidebar").classList.toggle("open"); $("#scrim").classList.toggle("show"); };
-  $(".menu-btn").onclick = toggle; $("#scrim").onclick = toggle;
+  const toggle = () => {
+    if (window.innerWidth <= 991) {
+      $("#sidebar").classList.toggle("open");
+      $("#scrim").classList.toggle("show");
+    } else {
+      document.body.classList.toggle("sidebar-collapsed");
+    }
+  };
+  $(".menu-btn").onclick = toggle;
+  $("#scrim").onclick = toggle;
   refreshCloudPill();
 }
 
